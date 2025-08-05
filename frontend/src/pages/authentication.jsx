@@ -25,11 +25,11 @@ export default function Authentication() {
 
     
 
-    const [username, setUsername] = React.useState();
-    const [password, setPassword] = React.useState();
-    const [name, setName] = React.useState();
-    const [error, setError] = React.useState();
-    const [message, setMessage] = React.useState();
+    const [username, setUsername] = React.useState('');
+    const [password, setPassword] = React.useState('');
+    const [email, setEmail] = React.useState('');
+    const [error, setError] = React.useState('');
+    const [message, setMessage] = React.useState('');
 
 
     const [formState, setFormState] = React.useState(0);
@@ -43,25 +43,25 @@ export default function Authentication() {
         try {
             if (formState === 0) {
 
-                let result = await handleLogin(username, password)
+                let result = await handleLogin(email, password)
 
 
             }
             if (formState === 1) {
-                let result = await handleRegister(name, username, password);
-                console.log(result);
-                setUsername("");
-                setMessage(result);
+                let result = await handleRegister(username, email, password);
+                   setMessage(result);
                 setOpen(true);
-                setError("")
-                setFormState(0)
-                setPassword("")
+                setError("");
+            
+                setFormState(0);
+                setUsername("");
+                setEmail("");
+                setPassword("");
             }
         } catch (err) {
 
-            console.log(err);
-            let message = (err.response.data.message);
-            setError(message);
+            const errorMessage = err?.response?.data?.message || 'An unexpected error occurred.';
+            setError(errorMessage);
         }
     }
 
@@ -114,23 +114,23 @@ export default function Authentication() {
                                 required
                                 fullWidth
                                 id="username"
-                                label="Full Name"
+                                label="Username"
                                 name="username"
-                                value={name}
+                                value={username}
                                 autoFocus
-                                onChange={(e) => setName(e.target.value)}
+                                onChange={(e) => setUsername(e.target.value)}
                             /> : <></>}
 
                             <TextField
                                 margin="normal"
                                 required
                                 fullWidth
-                                id="username"
-                                label="Username"
-                                name="username"
-                                value={username}
+                                id="email"
+                                label="Email Address"
+                                name="email"
+                                value={email}
                                 autoFocus
-                                onChange={(e) => setUsername(e.target.value)}
+                                onChange={(e) => setEmail(e.target.value)}
 
                             />
                             <TextField
