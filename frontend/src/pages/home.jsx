@@ -7,57 +7,62 @@ import RestoreIcon from '@mui/icons-material/Restore';
 import { AuthContext } from '../contexts/AuthContext';
 
 function HomeComponent() {
+
+
     let navigate = useNavigate();
     const [meetingCode, setMeetingCode] = useState("");
 
-    // --- FIX: Destructuring handleLogout from the context ---
-    const { addToUserHistory, handleLogout } = useContext(AuthContext);
 
-    const handleJoinVideoCall = async () => {
-        if (!meetingCode) {
-            alert("Please enter a meeting code.");
-            return;
-        }
-        try {
-            await addToUserHistory(meetingCode);
-            navigate(`/${meetingCode}`);
-        } catch (error) {
-            console.error("Failed to join meeting:", error);
-            alert("Failed to join meeting. Please check the code and try again.");
-        }
+    const {addToUserHistory} = useContext(AuthContext);
+    let handleJoinVideoCall = async () => {
+        await addToUserHistory(meetingCode)
+        navigate(`/${meetingCode}`)
     }
 
     return (
         <>
+
             <div className="navBar">
+
                 <div style={{ display: "flex", alignItems: "center" }}>
-                    <h2>Apna Video Call</h2>
+
+                    <h2>Confera</h2>
                 </div>
+
                 <div style={{ display: "flex", alignItems: "center" }}>
-                    <IconButton onClick={() => navigate("/history")}>
+                    <IconButton onClick={
+                        () => {
+                            navigate("/history")
+                        }
+                    }>
                         <RestoreIcon />
                     </IconButton>
                     <p>History</p>
-                    {/* --- FIX: Using the handleLogout function from context --- */}
-                    <Button onClick={handleLogout}>
+
+                    <Button onClick={() => {
+                        localStorage.removeItem("token")
+                        navigate("/auth")
+                    }}>
                         Logout
                     </Button>
                 </div>
+
+
             </div>
+
 
             <div className="meetContainer">
                 <div className="leftPanel">
                     <div>
-                        <h2>Providing Quality Video Call Just Like Quality Education</h2>
+                        <h2>Enter the Meeting Code</h2>
+
+                        <br/>
+
                         <div style={{ display: 'flex', gap: "10px" }}>
-                            <TextField 
-                                onChange={e => setMeetingCode(e.target.value)} 
-                                id="outlined-basic" 
-                                label="Meeting Code" 
-                                variant="outlined" 
-                                value={meetingCode}
-                            />
+
+                            <TextField onChange={e => setMeetingCode(e.target.value)} id="outlined-basic" label="Meeting Code" variant="outlined" />
                             <Button onClick={handleJoinVideoCall} variant='contained'>Join</Button>
+
                         </div>
                     </div>
                 </div>
@@ -69,4 +74,5 @@ function HomeComponent() {
     )
 }
 
-export default withAuth(HomeComponent);
+
+export default withAuth(HomeComponent)

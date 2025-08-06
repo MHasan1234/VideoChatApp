@@ -10,93 +10,86 @@ const client = axios.create({
 });
 
 export const AuthProvider = ({ children }) => {
-
-    // This state holds the token and initializes its value from localStorage.
-    const [token, setToken] = useState(() => localStorage.getItem('token'));
+    const [token, setToken] = useState(null);
+    // --- FIX: Add a loading state to track auth setup ---
+    const [isLoading, setIsLoading] = useState(true);
     const router = useNavigate();
 
-    // This effect runs whenever the 'token' state changes.
-    // This is the most reliable way to handle auth headers.
     useEffect(() => {
-        if (token) {
-            // When token exists, set it as a default header for all future axios requests.
-            client.defaults.headers.common['Authorization'] = 'Bearer ' + token;
-            localStorage.setItem('token', token);
-        } else {
-            // When token is null (on logout), remove the default header.
-            delete client.defaults.headers.common['Authorization'];
-            localStorage.removeItem('token');
+        // This effect runs once on initial app load
+        const tokenFromStorage = localStorage.getItem('token');
+        if (tokenFromStorage) {
+            // If a token is found, set it as the default header
+            client.defaults.headers.common['Authorization'] = 'Bearer ' + tokenFromStorage;
+            setToken(tokenFromStorage);
         }
-    }, [token]); // The effect depends on the token state.
-
-    const handleRegister = async (username, email, password) => {
-        try {
-            let request = await client.post("/register", {
-                username,
-                email,
-                password
-            });
-            return request.data.message;
-        } catch (err) {
-            throw err;
-        }
-    }
+        // --- FIX: Signal that authentication setup is complete ---
+        setIsLoading(false);
+    }, []); // Empty array ensures this runs only once
 
     const handleLogin = async (email, password) => {
         try {
-            let request = await client.post("/login", {
-                email,
-                password
-            });
+            const request = await client.post("/login", { email, password });
             if (request.status === httpStatus.OK) {
-                // Update the token state, which triggers the useEffect to set the header
-                setToken(request.data.token);
+                const newToken = request.data.token;
+                localStorage.setItem('token', newToken);
+                client.defaults.headers.common['Authorization'] = 'Bearer ' + newToken;
+                setToken(newToken);
                 router("/home");
             }
         } catch (err) {
             throw err;
         }
-    }
+    };
     
     const handleLogout = () => {
-        // Setting token to null triggers the useEffect to clear headers
+        localStorage.removeItem('token');
+        delete client.defaults.headers.common['Authorization'];
         setToken(null);
         router("/auth");
-    }
+    };
+
+    const handleRegister = async (username, email, password) => {
+        // Register logic remains the same
+        try {
+            let request = await client.post("/register", { username, email, password });
+            return request.data.message;
+        } catch (err) {
+            throw err;
+        }
+    };
 
     const getHistoryOfUser = async () => {
         try {
-            // No need to pass headers manually anymore. The effect handles it.
             let request = await client.get("/get_all_history");
             return request.data;
         } catch (err) {
             throw err;
         }
-    }
+    };
 
     const addToUserHistory = async (meetingCode) => {
         try {
-            // No need to pass headers manually anymore. The effect handles it.
             let request = await client.post("/add_to_history", { meetingCode });
             return request;
         } catch (e) {
             throw e;
         }
-    }
+    };
 
-    // The functions and state made available to the rest of the app
     const data = {
-        token, // Exposing the token so components can know if a user is logged in.
+        token,
+        isLoading, // --- FIX: Expose the loading state to other components ---
         addToUserHistory,
         getHistoryOfUser,
         handleRegister,
         handleLogin,
         handleLogout
-    }
+    };
 
     return (
         <AuthContext.Provider value={data}>
             {children}
         </AuthContext.Provider>
-    )
+    );
 }
