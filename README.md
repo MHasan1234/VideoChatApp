@@ -78,18 +78,3 @@ The application will be available at `http://localhost:5173` (or another port if
 
 ---
 
-## Screenshots
-
-<p align="center">
-  <img src="./frontend/public/gibli.png" width="250" alt="Chat Interface">
-  <img src="./frontend/public/icon.png" width="400" alt="Video Call Screen">
-  <img src="./frontend/public/mobile.png" width="250" alt="Mobile View">
-</p>
-
----
-Screenshots
-<p align="center">
-<img src="frontend/public/gibli.png" width="250" alt="ChatR">
-<img src="frontend/public/icon.png" width="400" alt="Video Call">
-<img src="frontend/public/mobile.png" width="250" alt="Mobile View">
-</p>
