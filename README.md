@@ -53,37 +53,6 @@ Follow these instructions to get a local copy of the project up and running for 
 - **npm** (Node Package Manager)
 - **MongoDB** (A running instance, either local or on a cloud service like MongoDB Atlas)
 
-### Installation & Setup
-
-1.  **Clone the Repository**
-    ```sh
-    git clone [https://github.com/MHasan1234/VideoChatApp.git](https://github.com/MHasan1234/VideoChatApp.git)
-    cd VideoChatApp
-    ```
-
-2.  **Install Backend Dependencies**
-    Navigate to the `backend` directory and install the required packages.
-    ```sh
-    cd backend
-    npm install
-    ```
-
-3.  **Install Frontend Dependencies**
-    Navigate to the `frontend` directory and install its packages.
-    ```sh
-    cd ../frontend
-    npm install
-    ```
-
-4.  **Configure Environment Variables**
-    In the `backend` directory, create a `.env` file and add the following configuration. Replace the placeholder values with your actual credentials.
-    ```env
-    MONGO_URI=your_mongodb_connection_string
-    JWT_SECRET=your_super_secret_jwt_key
-    PORT=8000
-    ```
-
----
 
 ## 🏃‍♂️ Running the Application
 
@@ -103,23 +72,7 @@ Follow these instructions to get a local copy of the project up and running for 
 
 ---
 
-## 🚢 Deployment
 
-This application is designed to be deployed as two separate services: a **Web Service** for the backend and a **Static Site** for the frontend.
-
-### Backend Deployment (Web Service)
-
--   **Root Directory**: `backend`
--   **Build Command**: `npm install`
--   **Start Command**: `node app.js`
-
-### Frontend Deployment (Static Site)
-
--   **Root Directory**: `frontend`
--   **Build Command**: `npm run build`
--   **Publish Directory**: `dist`
-
----
 
 <img width="1919" height="862" alt="image" src="https://github.com/user-attachments/assets/693a916e-1f60-4317-9341-f9dcd314eb28" />
 <img width="1918" height="863" alt="image" src="https://github.com/user-attachments/assets/4940dd32-b12e-484a-90be-627303216c2d" />
