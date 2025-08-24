@@ -1,59 +1,82 @@
-# Confera - Video Chat Application
+# Confera - Real-Time Video Chat Application
 
-Confera is a full-stack video chat application that allows users to connect with others through real-time video, audio, and chat. It features a modern, clean interface and is built with a powerful stack of technologies including React, Node.js, and WebRTC.
-
-## Features
-
-- **User Authentication**: Secure user registration and login system.
-- **Real-time Video/Audio**: High-quality, real-time video and audio communication using WebRTC.
-- **Screen Sharing**: Share your screen with other participants in the meeting.
-- **Text Chat**: A built-in chat feature for real-time messaging during video calls.
-- **Meeting History**: View a history of your past meetings and rejoin them with a single click.
-- **Responsive Design**: A modern and responsive user interface built with Material-UI.
+Confera is a modern, full-stack video chat application designed for seamless real-time communication. It allows users to create accounts, join video meetings, and interact through video, audio, and text chat. The project is built with a robust MERN-stack architecture (MongoDB, Express, React, Node.js) and utilizes WebRTC for high-quality, peer-to-peer video streaming.
 
 ---
 
-## Tech Stack
+## ✨ Features Breakdown
 
-| Category     | Technology                                                     |
-|--------------|----------------------------------------------------------------|
-| **Frontend** | React, React Router, Material-UI, Socket.IO Client, Axios, Vite |
-| **Backend** | Node.js, Express, MongoDB, Mongoose, Socket.IO, JWT, bcrypt     |
-| **Database** | MongoDB                                                        |
+### Frontend (Client-Side)
+
+-   **Authentication Pages**: Clean, intuitive forms for user registration and login.
+-   **Protected Routes**: Ensures that only authenticated users can access core application pages like the home and history screens.
+-   **Home Dashboard**: A central hub for authenticated users to start or join meetings by entering a meeting code.
+-   **Interactive Video Room**:
+    -   **Media Controls**: Simple toggles to mute/unmute the microphone and turn the camera on/off.
+    -   **Screen Sharing**: Functionality to share your screen with other participants for presentations or collaboration.
+    -   **Real-Time Chat**: An integrated chat panel for sending and receiving text messages during a call.
+-   **Meeting History**: A dedicated page that lists all past meetings a user has joined, with the ability to rejoin any meeting with a single click.
+
+### Backend (Server-Side)
+
+-   **Secure User API**: RESTful endpoints for handling user registration and login.
+-   **Password Hashing**: Utilizes **bcrypt** to securely hash and salt user passwords, ensuring they are never stored in plain text.
+-   **JWT Authentication**: Implements JSON Web Tokens to secure the API. A token is generated on login and used to authenticate subsequent requests.
+-   **Meeting History API**: Endpoints to save a new meeting to a user's record and to fetch the complete history for a logged-in user.
+-   **Real-Time Signaling Server (Socket.IO)**:
+    -   **WebRTC Signaling**: Manages the exchange of connection metadata (offers, answers, ICE candidates) required to establish direct peer-to-peer video streams.
+    -   **Room Management**: Handles users joining and leaving specific meeting rooms and notifies other participants of these events.
+    -   **Chat Broadcasting**: Relays live chat messages to all participants within the same meeting room.
+-   **Database Modeling**: Uses **Mongoose** to define schemas and models for `Users` and `Meetings` for structured data storage in MongoDB.
+-   **CORS Configuration**: Properly configured to allow requests from the deployed frontend application, ensuring smooth communication between the two services.
 
 ---
 
-## Getting Started
+## 🛠️ Tech Stack
 
-To get a local copy up and running, follow these simple steps.
+| Category         | Technology                                                              |
+| ---------------- | ----------------------------------------------------------------------- |
+| **Frontend** | React, Vite, React Router, Material-UI, Axios, Socket.IO Client         |
+| **Backend** | Node.js, Express.js, MongoDB, Mongoose, Socket.IO, JSON Web Token (JWT) |
+| **Real-Time** | WebRTC, Socket.IO                                                       |
+| **Database** | MongoDB                                                                 |
+
+---
+
+## ⚙️ Getting Started
+
+Follow these instructions to get a local copy of the project up and running for development and testing purposes.
 
 ### Prerequisites
 
-- Node.js and npm installed on your machine.
-- A running instance of MongoDB.
+- **Node.js** (v18 or later)
+- **npm** (Node Package Manager)
+- **MongoDB** (A running instance, either local or on a cloud service like MongoDB Atlas)
 
 ### Installation & Setup
 
-1.  **Clone the repo**
+1.  **Clone the Repository**
     ```sh
     git clone [https://github.com/MHasan1234/VideoChatApp.git](https://github.com/MHasan1234/VideoChatApp.git)
-    ```
-2.  **Navigate to the project directory**
-    ```sh
     cd VideoChatApp
     ```
-3.  **Install Backend Dependencies**
+
+2.  **Install Backend Dependencies**
+    Navigate to the `backend` directory and install the required packages.
     ```sh
     cd backend
     npm install
     ```
-4.  **Install Frontend Dependencies**
+
+3.  **Install Frontend Dependencies**
+    Navigate to the `frontend` directory and install its packages.
     ```sh
     cd ../frontend
     npm install
     ```
-5.  **Configure Environment Variables**
-    In the `backend` directory, create a `.env` file and add the following variables. Replace the placeholder values with your actual data.
+
+4.  **Configure Environment Variables**
+    In the `backend` directory, create a `.env` file and add the following configuration. Replace the placeholder values with your actual credentials.
     ```env
     MONGO_URI=your_mongodb_connection_string
     JWT_SECRET=your_super_secret_jwt_key
@@ -62,19 +85,42 @@ To get a local copy up and running, follow these simple steps.
 
 ---
 
-## Running the Application
+## 🏃‍♂️ Running the Application
 
 1.  **Start the Backend Server**
     From the `backend` directory, run:
     ```sh
     npm run dev
     ```
+    The server will start on the port specified in your `.env` file (e.g., `http://localhost:8000`).
+
 2.  **Start the Frontend Development Server**
     From the `frontend` directory, run:
     ```sh
     npm run dev
     ```
-The application will be available at `http://localhost:5173` (or another port if 5173 is in use).
+    The application will be available at `http://localhost:5173`.
 
 ---
 
+## 🚢 Deployment
+
+This application is designed to be deployed as two separate services: a **Web Service** for the backend and a **Static Site** for the frontend.
+
+### Backend Deployment (Web Service)
+
+-   **Root Directory**: `backend`
+-   **Build Command**: `npm install`
+-   **Start Command**: `node app.js`
+
+### Frontend Deployment (Static Site)
+
+-   **Root Directory**: `frontend`
+-   **Build Command**: `npm run build`
+-   **Publish Directory**: `dist`
+
+---
+
+## 📄 License
+
+This project is distributed under the ISC License.
