@@ -50,12 +50,16 @@ export const AuthProvider = ({ children }) => {
         router("/auth");
     };
 
-    const handleRegister = async (username, email, password) => {
-        // Register logic remains the same
+      const handleRegister = async (username, email, password) => {
         try {
-            let request = await client.post("/register", { username, email, password });
-            return request.data.message;
+            // First, register the new user
+            await client.post("/register", { username, email, password });
+            
+            // If registration is successful, automatically log them in
+            await handleLogin(email, password);
+            // The handleLogin function will redirect to the "/home" page
         } catch (err) {
+            // Re-throw the error to be caught by the UI component
             throw err;
         }
     };
