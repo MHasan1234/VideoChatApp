@@ -1,7 +1,7 @@
 // src/middlewares/auth.middleware.js
-import { verifyToken } from "../utils/token.js";
+import { verifyToken } from "../utils/token.js"; 
 
-export const authenticate = (req, res, next) => {
+export const authenticate = (req, res, next) => { 
   try {
     // 1. Get the Authorization header from the incoming request.
     const authHeader = req.headers['authorization'];
