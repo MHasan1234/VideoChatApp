@@ -16,7 +16,7 @@ const server = createServer(app);
 const io = connectToSocket(server);
 
  app.use(cors({
-  origin: ["http://localhost:3000", "http://localhost:5173"],
+  origin: ["http://localhost:3000", "http://localhost:5173", "https://confera-vajr.onrender.com"],
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"], 
   credentials: true
 }));
