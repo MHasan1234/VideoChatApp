@@ -77,7 +77,17 @@ Follow these instructions to get a local copy of the project up and running for 
 <img width="1919" height="862" alt="image" src="https://github.com/user-attachments/assets/693a916e-1f60-4317-9341-f9dcd314eb28" />
 
 
+
+
+
+
+
 <img width="1919" height="862" alt="image" src="https://github.com/user-attachments/assets/091a4fb7-7ff1-4d48-883f-c0054a62d5df" />
+
+
+
+
+
 
 
 <img width="1918" height="863" alt="image" src="https://github.com/user-attachments/assets/4940dd32-b12e-484a-90be-627303216c2d" />
